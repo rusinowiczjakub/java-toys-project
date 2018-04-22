@@ -2,8 +2,10 @@ package app.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class MainPanel extends JPanel {
+public class MainPanel {
     private JPanel categories;
     private JPanel toys;
     private JPanel fileExport;
@@ -13,9 +15,17 @@ public class MainPanel extends JPanel {
     private JPanel mainPane;
 
     public MainPanel() {
+        categories.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        toys.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        fileExport.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        fileImport.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        about.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
-    public JPanel getCategories() { return categories; }
+    public JPanel getCategories() {
+        return categories;
+    }
 
     public JPanel getToys() {
         return toys;
