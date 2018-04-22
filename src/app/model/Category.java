@@ -1,6 +1,6 @@
 package app.model;
 
-public class Category extends Model{
+public class Category {
     private String name;
 
     public Category(String name) {

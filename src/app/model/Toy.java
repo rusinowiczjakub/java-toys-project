@@ -1,5 +1,8 @@
 package app.model;
 
+/**
+ * The type Toy.
+ */
 public class Toy extends Model {
     private String producer;
     private String name;
@@ -7,6 +10,15 @@ public class Toy extends Model {
     private int minimalAge;
     private double price;
 
+    /**
+     * Instantiates a new Toy.
+     *
+     * @param producer   the producer
+     * @param name       the name
+     * @param weight     the weight
+     * @param minimalAge the minimal age
+     * @param price      the price
+     */
     public Toy(String producer, String name, double weight, int minimalAge, double price) {
         this.producer = producer;
         this.name = name;

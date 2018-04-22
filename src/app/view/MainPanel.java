@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * The type Main panel.
+ */
 public class MainPanel {
     private JPanel categories;
     private JPanel toys;
@@ -14,6 +17,9 @@ public class MainPanel {
     private JPanel about;
     private JPanel mainPane;
 
+    /**
+     * Instantiates a new Main panel.
+     */
     public MainPanel() {
         categories.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         toys.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

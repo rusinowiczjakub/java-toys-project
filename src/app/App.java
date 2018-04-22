@@ -6,8 +6,16 @@ import app.view.View;
 
 import java.awt.*;
 
+/**
+ * The type App.
+ */
 public class App {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
 
         EventQueue.invokeLater(new Runnable() {
@@ -18,6 +26,9 @@ public class App {
         });
     }
 
+    /**
+     * Init.
+     */
     public void init() {
         Model model = new Model();
         View view = new View();
