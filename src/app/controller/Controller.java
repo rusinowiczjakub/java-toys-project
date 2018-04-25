@@ -1,9 +1,13 @@
 package app.controller;
 
 import app.model.Model;
+import app.model.Toy;
 import app.view.View;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -15,6 +19,7 @@ public class Controller extends JPanel {
 
     private Model model;
     private View view;
+    private JFrame addToyFrame = new JFrame();
 
     /**
      * Instantiates a new Controller.
@@ -35,7 +40,6 @@ public class Controller extends JPanel {
         initListeners();
     }
 
-
     /**
      * Init listeners.
      *
@@ -43,7 +47,8 @@ public class Controller extends JPanel {
      *
      */
     public void initListeners() {
-        changePanel(this.view.getMainPanel().getToys(), new JPanel());
+        changePanel(this.view.getMainPanel().getToys(), view.getToyPanel().getToysPanel() );
+        addToyAction();
     }
 
     /**
@@ -60,6 +65,35 @@ public class Controller extends JPanel {
                 panel.setVisible(true);
                 view.setContentPane(panel);
                 view.pack();
+            }
+        });
+    }
+
+    public void addToyAction() {
+        view.getToyPanel().getAddNewBtn().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                addToyFrame.setSize(new Dimension(340, 400));
+                addToyFrame.add(view.getCreateToy().getCreateToyPanel());
+                addToyFrame.setVisible(true);
+                view.pack();
+            }
+        });
+
+        view.getCreateToy().getSaveBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Toy toy = new Toy(
+                        view.getCreateToy().getProducer().getText(),
+                        view.getCreateToy().getName().getText(),
+                        (double) view.getCreateToy().getWeight().getValue(),
+                        (int) view.getCreateToy().getMinAge().getValue(),
+                        (double) view.getCreateToy().getPrice().getValue()
+                );
+
+                addToyFrame.dispose();
+                model.addToy(toy);
             }
         });
     }

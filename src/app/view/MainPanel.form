@@ -6,6 +6,7 @@
     </constraints>
     <properties>
       <background color="-1"/>
+      <minimumSize width="566" height="372"/>
     </properties>
     <border type="none" title=""/>
     <children>

@@ -75,6 +75,7 @@ public class MainPanel {
         mainPane = new JPanel();
         mainPane.setLayout(new GridBagLayout());
         mainPane.setBackground(new Color(-1));
+        mainPane.setMinimumSize(new Dimension(566, 372));
         mainPane.setBorder(BorderFactory.createTitledBorder(""));
         categories = new JPanel();
         categories.setLayout(new GridBagLayout());

@@ -12,13 +12,14 @@ import java.awt.event.MouseListener;
 public class View extends JFrame {
 
     private MainPanel mainPanel;
+    private ToyPanel toyPanel;
+    private CreateToy createToy;
 
     public View() {
         mainPanel = new MainPanel();
-    }
+        toyPanel = new ToyPanel();
+        createToy = new CreateToy();
 
-    public MainPanel getMainPanel() {
-        return mainPanel;
     }
 
     public void setMainPanel(MainPanel mainPanel) {
@@ -36,5 +37,17 @@ public class View extends JFrame {
         this.pack();
         this.setVisible(true);
         return this;
+    }
+
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public ToyPanel getToyPanel() {
+        return toyPanel;
+    }
+
+    public CreateToy getCreateToy() {
+        return createToy;
     }
 }
