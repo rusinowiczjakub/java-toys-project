@@ -7,7 +7,6 @@ public class Model {
 
     private List<Toy> toys;
 
-
     public Model() {
         toys = new ArrayList<Toy>();
     }

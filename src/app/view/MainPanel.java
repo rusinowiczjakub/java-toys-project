@@ -1,5 +1,7 @@
 package app.view;
 
+import app.model.Toy;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -78,7 +80,7 @@ public class MainPanel {
         mainPane.setMinimumSize(new Dimension(566, 372));
         mainPane.setBorder(BorderFactory.createTitledBorder(""));
         categories = new JPanel();
-        categories.setLayout(new GridBagLayout());
+        categories.setLayout(new BorderLayout(0, 0));
         categories.setBackground(new Color(-1));
         categories.setPreferredSize(new Dimension(130, 130));
         GridBagConstraints gbc;
@@ -93,11 +95,7 @@ public class MainPanel {
         label1.setOpaque(false);
         label1.setPreferredSize(new Dimension(130, 130));
         label1.setText("");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        categories.add(label1, gbc);
+        categories.add(label1, BorderLayout.CENTER);
         final JToolBar.Separator toolBar$Separator1 = new JToolBar.Separator();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -106,7 +104,7 @@ public class MainPanel {
         gbc.insets = new Insets(0, 40, 0, 40);
         mainPane.add(toolBar$Separator1, gbc);
         toys = new JPanel();
-        toys.setLayout(new GridBagLayout());
+        toys.setLayout(new BorderLayout(0, 0));
         toys.setBackground(new Color(-1));
         toys.setPreferredSize(new Dimension(130, 130));
         gbc = new GridBagConstraints();
@@ -120,11 +118,7 @@ public class MainPanel {
         label2.setOpaque(false);
         label2.setPreferredSize(new Dimension(130, 130));
         label2.setText("");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        toys.add(label2, gbc);
+        toys.add(label2, BorderLayout.CENTER);
         final JToolBar.Separator toolBar$Separator2 = new JToolBar.Separator();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -133,7 +127,7 @@ public class MainPanel {
         gbc.insets = new Insets(0, 40, 0, 40);
         mainPane.add(toolBar$Separator2, gbc);
         fileExport = new JPanel();
-        fileExport.setLayout(new GridBagLayout());
+        fileExport.setLayout(new BorderLayout(0, 0));
         fileExport.setBackground(new Color(-1));
         fileExport.setPreferredSize(new Dimension(130, 130));
         gbc = new GridBagConstraints();
@@ -147,11 +141,7 @@ public class MainPanel {
         label3.setOpaque(false);
         label3.setPreferredSize(new Dimension(130, 130));
         label3.setText("");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        fileExport.add(label3, gbc);
+        fileExport.add(label3, BorderLayout.CENTER);
         final JToolBar.Separator toolBar$Separator3 = new JToolBar.Separator();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;

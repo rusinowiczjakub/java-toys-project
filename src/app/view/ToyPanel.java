@@ -1,11 +1,14 @@
 package app.view;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ToyPanel {
     private JPanel toysPanel;
     private JPanel addNewBtn;
+    private JTable table;
+    private JScrollPane scrollPane;
 
     public ToyPanel() {
         addNewBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -17,6 +20,22 @@ public class ToyPanel {
 
     public JPanel getAddNewBtn() {
         return addNewBtn;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
     }
 
     {
@@ -35,29 +54,20 @@ public class ToyPanel {
      */
     private void $$$setupUI$$$() {
         toysPanel = new JPanel();
-        toysPanel.setLayout(new GridBagLayout());
+        toysPanel.setLayout(new BorderLayout(0, 0));
         toysPanel.setBackground(new Color(-1));
-        toysPanel.setMinimumSize(new Dimension(566, 372));
+        toysPanel.setMinimumSize(new Dimension(800, 600));
         toysPanel.setOpaque(false);
-        toysPanel.setPreferredSize(new Dimension(572, 372));
+        toysPanel.setPreferredSize(new Dimension(800, 600));
         addNewBtn = new JPanel();
-        addNewBtn.setLayout(new GridBagLayout());
+        addNewBtn.setLayout(new BorderLayout(0, 0));
         addNewBtn.setBackground(new Color(-1));
         addNewBtn.setPreferredSize(new Dimension(135, 40));
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.BOTH;
-        toysPanel.add(addNewBtn, gbc);
+        toysPanel.add(addNewBtn, BorderLayout.NORTH);
         final JLabel label1 = new JLabel();
         label1.setIcon(new ImageIcon(getClass().getResource("/app/images/add-button-inside-black-circle.png")));
         label1.setText("Utwórz nowy");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        addNewBtn.add(label1, gbc);
+        addNewBtn.add(label1, BorderLayout.NORTH);
     }
 
     /**

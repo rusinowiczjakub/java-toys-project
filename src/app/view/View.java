@@ -19,7 +19,6 @@ public class View extends JFrame {
         mainPanel = new MainPanel();
         toyPanel = new ToyPanel();
         createToy = new CreateToy();
-
     }
 
     public void setMainPanel(MainPanel mainPanel) {
@@ -37,6 +36,41 @@ public class View extends JFrame {
         this.pack();
         this.setVisible(true);
         return this;
+    }
+
+    /**
+     * The method is used to switch between different JPanels
+     *
+     * @param element the element
+     * @param panel   the panel
+     */
+    public void changePanel(JPanel element, JPanel panel, View view) {
+        element.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                panel.setVisible(true);
+                view.setContentPane(panel);
+                view.pack();
+            }
+        });
+    }
+
+    public void hoverEffect(JPanel element, Color enterColor) {
+        Color originalColor = element.getBackground();
+        element.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                element.setBackground(enterColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                element.setBackground(originalColor);
+            }
+        });
     }
 
     public MainPanel getMainPanel() {

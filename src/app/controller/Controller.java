@@ -2,9 +2,12 @@ package app.controller;
 
 import app.model.Model;
 import app.model.Toy;
+import app.model.ToyTableModel;
 import app.view.View;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +22,7 @@ public class Controller extends JPanel {
 
     private Model model;
     private View view;
-    private JFrame addToyFrame = new JFrame();
+    private JFrame addToyFrame;
 
     /**
      * Instantiates a new Controller.
@@ -30,6 +33,7 @@ public class Controller extends JPanel {
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
+        addToyFrame = new JFrame();
     }
 
     /**
@@ -38,6 +42,7 @@ public class Controller extends JPanel {
     public void init() {
         view.createView();
         initListeners();
+        createTable();
     }
 
     /**
@@ -47,27 +52,18 @@ public class Controller extends JPanel {
      *
      */
     public void initListeners() {
-        changePanel(this.view.getMainPanel().getToys(), view.getToyPanel().getToysPanel() );
+        view.changePanel(view.getMainPanel().getToys(), view.getToyPanel().getToysPanel(), view);
         addToyAction();
+        view.hoverEffect(this.view.getMainPanel().getToys(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getMainPanel().getCategories(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getMainPanel().getAbout(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getMainPanel().getClose(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getMainPanel().getFileExport(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getMainPanel().getFileImport(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getMainPanel().getFileImport(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getToyPanel().getAddNewBtn(), new Color(25,181,254, 60));
     }
 
-    /**
-     * The method is used to switch between different JPanels
-     *
-     * @param element the element
-     * @param panel   the panel
-     */
-    public void changePanel(JPanel element, JPanel panel) {
-        element.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                panel.setVisible(true);
-                view.setContentPane(panel);
-                view.pack();
-            }
-        });
-    }
 
     public void addToyAction() {
         view.getToyPanel().getAddNewBtn().addMouseListener(new MouseAdapter() {
@@ -94,8 +90,22 @@ public class Controller extends JPanel {
 
                 addToyFrame.dispose();
                 model.addToy(toy);
+
+                ((AbstractTableModel) view.getToyPanel().getTable().getModel()).fireTableDataChanged();
             }
         });
     }
 
+    public void createTable() {
+        view.getToyPanel().setTable(new JTable(
+                new ToyTableModel(model)
+        ));
+
+        view.getToyPanel().setScrollPane(
+                new JScrollPane(view.getToyPanel().getTable())
+        );
+        view.getToyPanel().getToysPanel().add(
+                view.getToyPanel().getScrollPane(), BorderLayout.CENTER
+        );
+    }
 }
