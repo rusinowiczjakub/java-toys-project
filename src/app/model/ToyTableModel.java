@@ -11,7 +11,8 @@ public class ToyTableModel extends AbstractTableModel {
             "Nazwa",
             "Waga",
             "Minimalny wiek",
-            "Cena"
+            "Cena",
+            "Kategoria"
     };
     private List<Toy> toysList;
 

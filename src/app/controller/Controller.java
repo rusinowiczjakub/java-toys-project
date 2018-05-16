@@ -97,9 +97,10 @@ public class Controller extends JPanel {
     }
 
     public void createTable() {
-        view.getToyPanel().setTable(new JTable(
-                new ToyTableModel(model)
-        ));
+        JTable table = new JTable(new ToyTableModel(model));
+        table.setAutoCreateRowSorter(true);
+
+        view.getToyPanel().setTable(table);
 
         view.getToyPanel().setScrollPane(
                 new JScrollPane(view.getToyPanel().getTable())
