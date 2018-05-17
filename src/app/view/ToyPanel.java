@@ -84,10 +84,20 @@ public class ToyPanel {
         panel1.setLayout(new BorderLayout(0, 0));
         toysPanel.add(panel1, BorderLayout.NORTH);
         categoriesBox = new JComboBox();
+        categoriesBox.setBackground(new Color(-1));
         panel1.add(categoriesBox, BorderLayout.NORTH);
         searchButton = new JButton();
+        searchButton.setBackground(new Color(-1));
+        searchButton.setForeground(new Color(-16777216));
         searchButton.setText("Filtruj");
         panel1.add(searchButton, BorderLayout.CENTER);
+        final JLabel label2 = new JLabel();
+        label2.setBackground(new Color(-1));
+        label2.setForeground(new Color(-1));
+        label2.setIcon(new ImageIcon(getClass().getResource("/app/images/magnifying-glass.png")));
+        label2.setOpaque(true);
+        label2.setText(" ");
+        panel1.add(label2, BorderLayout.EAST);
     }
 
     /**

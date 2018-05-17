@@ -36,12 +36,26 @@
         <children>
           <component id="ffab9" class="javax.swing.JComboBox" binding="categoriesBox">
             <constraints border-constraint="North"/>
-            <properties/>
+            <properties>
+              <background color="-1"/>
+            </properties>
           </component>
           <component id="ad463" class="javax.swing.JButton" binding="searchButton">
             <constraints border-constraint="Center"/>
             <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
               <text value="Filtruj"/>
+            </properties>
+          </component>
+          <component id="ef0e2" class="javax.swing.JLabel">
+            <constraints border-constraint="East"/>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-1"/>
+              <icon value="app/images/magnifying-glass.png"/>
+              <opaque value="true"/>
+              <text value=" "/>
             </properties>
           </component>
         </children>

@@ -10,7 +10,6 @@ import app.view.View;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -118,11 +117,13 @@ public class Controller extends JPanel {
         table.setAutoCreateRowSorter(true);
         table.getColumn("").setCellRenderer(new ButtonRenderer());
         table.addMouseListener(new JTableButtonMouseListener(table));
-
+        table.setBackground(new Color(255, 255, 255, 100));
         view.getToyPanel().setTable(table);
-        view.getToyPanel().setScrollPane(
-                new JScrollPane(view.getToyPanel().getTable())
-        );
+
+        JScrollPane scrollPane = new JScrollPane(view.getToyPanel().getTable());
+        scrollPane.getViewport().setBackground(Color.WHITE);
+        view.getToyPanel().setScrollPane(scrollPane);
+
         view.getToyPanel().getToysPanel().add(
                 view.getToyPanel().getScrollPane(), BorderLayout.CENTER
         );
