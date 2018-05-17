@@ -13,7 +13,7 @@
     <border type="none"/>
     <children>
       <grid id="a7a02" binding="addNewBtn" layout-manager="BorderLayout" hgap="0" vgap="0">
-        <constraints border-constraint="North"/>
+        <constraints border-constraint="South"/>
         <properties>
           <background color="-1"/>
           <preferredSize width="135" height="40"/>
@@ -21,10 +21,27 @@
         <border type="none"/>
         <children>
           <component id="58d45" class="javax.swing.JLabel">
-            <constraints border-constraint="North"/>
+            <constraints border-constraint="West"/>
             <properties>
               <icon value="app/images/add-button-inside-black-circle.png"/>
               <text value="Utwórz nowy"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="3d431" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="ffab9" class="javax.swing.JComboBox" binding="categoriesBox">
+            <constraints border-constraint="North"/>
+            <properties/>
+          </component>
+          <component id="ad463" class="javax.swing.JButton" binding="searchButton">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <text value="Filtruj"/>
             </properties>
           </component>
         </children>

@@ -1,5 +1,7 @@
 package app.view;
 
+import app.model.Category;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,6 +13,7 @@ public class CreateToy {
     private JButton saveBtn;
     private JTextArea producer;
     private JPanel createToyPanel;
+    private JComboBox<Category> categoryBox;
 
     public CreateToy() {
         SpinnerNumberModel spinnerWeightModel = new SpinnerNumberModel(0.00, -999999999, 999999999.00, 0.1);
@@ -51,6 +54,10 @@ public class CreateToy {
 
     public JPanel getCreateToyPanel() {
         return createToyPanel;
+    }
+
+    public JComboBox getCategoryBox() {
+        return categoryBox;
     }
 
     {
@@ -136,7 +143,7 @@ public class CreateToy {
         saveBtn.setText("Zapisz");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 15;
+        gbc.gridy = 16;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         createToyPanel.add(saveBtn, gbc);
         final JPanel spacer5 = new JPanel();
@@ -181,6 +188,14 @@ public class CreateToy {
         gbc.gridy = 12;
         gbc.anchor = GridBagConstraints.WEST;
         createToyPanel.add(label5, gbc);
+        categoryBox = new JComboBox();
+        categoryBox.setBackground(new Color(-1));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 15;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        createToyPanel.add(categoryBox, gbc);
         label1.setLabelFor(producer);
         label2.setLabelFor(name);
         label3.setLabelFor(weight);

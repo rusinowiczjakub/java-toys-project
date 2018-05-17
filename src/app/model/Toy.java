@@ -20,12 +20,13 @@ public class Toy extends Model {
      * @param minimalAge the minimal age
      * @param price      the price
      */
-    public Toy(String producer, String name, double weight, int minimalAge, double price) {
+    public Toy(String producer, String name, double weight, int minimalAge, double price, Category category) {
         this.producer = producer;
         this.name = name;
         this.weight = weight;
         this.minimalAge = minimalAge;
         this.price = price;
+        this.category = category;
     }
 
     @Override
@@ -80,6 +81,14 @@ public class Toy extends Model {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
 

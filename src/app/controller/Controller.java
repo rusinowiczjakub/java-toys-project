@@ -1,8 +1,11 @@
 package app.controller;
 
+import app.model.Category;
 import app.model.Model;
 import app.model.Toy;
 import app.model.ToyTableModel;
+import app.view.ButtonRenderer;
+import app.view.JTableButtonMouseListener;
 import app.view.View;
 
 import javax.swing.*;
@@ -13,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 
 /**
@@ -23,6 +27,7 @@ public class Controller extends JPanel {
     private Model model;
     private View view;
     private JFrame addToyFrame;
+    private List<Toy> tableData;
 
     /**
      * Instantiates a new Controller.
@@ -43,6 +48,7 @@ public class Controller extends JPanel {
         view.createView();
         initListeners();
         createTable();
+        renderCategoriesBox();
     }
 
     /**
@@ -85,7 +91,8 @@ public class Controller extends JPanel {
                         view.getCreateToy().getName().getText(),
                         (double) view.getCreateToy().getWeight().getValue(),
                         (int) view.getCreateToy().getMinAge().getValue(),
-                        (double) view.getCreateToy().getPrice().getValue()
+                        (double) view.getCreateToy().getPrice().getValue(),
+                        (Category) view.getCreateToy().getCategoryBox().getSelectedItem()
                 );
 
                 addToyFrame.dispose();
@@ -97,11 +104,22 @@ public class Controller extends JPanel {
     }
 
     public void createTable() {
-        JTable table = new JTable(new ToyTableModel(model));
+        tableData = model.getToys();
+        view.getToyPanel().getSearchButton().addActionListener(e -> {
+            JTable table = Controller.this.view.getToyPanel().getTable();
+            tableData = Controller.this.model.getToysByCategory((Category) Controller.this.view.getToyPanel().getCategoriesBox().getSelectedItem());
+            table.setModel(new ToyTableModel(tableData));
+            table.getColumn("").setCellRenderer(new ButtonRenderer());
+            table.addMouseListener(new JTableButtonMouseListener(Controller.this.view.getToyPanel().getTable()));
+            ((AbstractTableModel) Controller.this.view.getToyPanel().getTable().getModel()).fireTableDataChanged();
+        });
+
+        JTable table = new JTable(new ToyTableModel(tableData));
         table.setAutoCreateRowSorter(true);
+        table.getColumn("").setCellRenderer(new ButtonRenderer());
+        table.addMouseListener(new JTableButtonMouseListener(table));
 
         view.getToyPanel().setTable(table);
-
         view.getToyPanel().setScrollPane(
                 new JScrollPane(view.getToyPanel().getTable())
         );
@@ -109,4 +127,15 @@ public class Controller extends JPanel {
                 view.getToyPanel().getScrollPane(), BorderLayout.CENTER
         );
     }
+
+    public void renderCategoriesBox() {
+        for(int i = 0; i < model.getCategories().size(); i++) {
+            if (!(i == 0)) {
+                view.getCreateToy().getCategoryBox().addItem(model.getCategories().get(i));
+            }
+            view.getToyPanel().getCategoriesBox().addItem(model.getCategories().get(i));
+        }
+    }
+
+
 }

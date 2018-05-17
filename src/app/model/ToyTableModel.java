@@ -1,7 +1,12 @@
 package app.model;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 public class ToyTableModel extends AbstractTableModel {
@@ -12,12 +17,13 @@ public class ToyTableModel extends AbstractTableModel {
             "Waga",
             "Minimalny wiek",
             "Cena",
-            "Kategoria"
+            "Kategoria",
+            ""
     };
     private List<Toy> toysList;
 
-    public ToyTableModel(Model model) {
-        toysList = model.getToys();
+    public ToyTableModel(List<Toy> toys) {
+        toysList = toys;
     }
 
     @Override
@@ -55,6 +61,20 @@ public class ToyTableModel extends AbstractTableModel {
                 temp = toysList.get(rowIndex).getPrice();
 
                 break;
+
+            case 5:
+                temp = toysList.get(rowIndex).getCategory().toString();
+
+                break;
+
+            case 6:
+                final JButton deleteButton = new JButton("usuń");
+                deleteButton.setBackground(new Color(255, 255, 255, 100));
+                deleteButton.addActionListener(e -> {
+                        toysList.remove(rowIndex);
+                        fireTableDataChanged();
+                });
+                return deleteButton;
         }
         return temp;
     }
