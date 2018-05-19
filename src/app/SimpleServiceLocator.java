@@ -11,7 +11,7 @@ public class SimpleServiceLocator {
 
     public SimpleServiceLocator() {
         services = new HashMap<String, Service>();
-        register("file_exporter", new FileHandlingService());
+        register("file_handler", new FileHandlingService());
     }
 
     public void register(String name, Service service){

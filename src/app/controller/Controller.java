@@ -42,7 +42,7 @@ public class Controller extends JPanel {
         addCategoryFrame = new JFrame();
         this.serviceLocator = serviceLocator;
 
-        FileHandlingService service =(FileHandlingService) this.serviceLocator.get("file_exporter");
+        FileHandlingService service =(FileHandlingService) this.serviceLocator.get("file_handler");
         service.importCategoryData(model, service.getCategoryFromJson("src/app/data/categories.json"));
         service.importToyData(model, service.getToyFromJson("src/app/data/toys.json"));
 
