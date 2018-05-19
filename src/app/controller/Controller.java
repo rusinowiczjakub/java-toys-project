@@ -71,7 +71,6 @@ public class Controller extends JPanel {
 
         view.hoverEffect(this.view.getMainPanel().getToys(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getCategories(), new Color(25,181,254, 60));
-        view.hoverEffect(this.view.getMainPanel().getClose(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getFileExport(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getFileImport(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getFileImport(), new Color(25,181,254, 60));
