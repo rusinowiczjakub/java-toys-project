@@ -66,23 +66,14 @@ public class CategoryPanel {
         categoriesPane.add(panel2, BorderLayout.EAST);
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new BorderLayout(0, 0));
-        panel3.setBackground(new Color(-1));
-        panel3.setPreferredSize(new Dimension(135, 40));
-        panel2.add(panel3, BorderLayout.SOUTH);
-        final JLabel label2 = new JLabel();
-        label2.setIcon(new ImageIcon(getClass().getResource("/app/images/add-button-inside-black-circle.png")));
-        label2.setText("Usuń kategorię");
-        panel3.add(label2, BorderLayout.WEST);
+        categoriesPane.add(panel3, BorderLayout.SOUTH);
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new BorderLayout(0, 0));
-        categoriesPane.add(panel4, BorderLayout.SOUTH);
-        final JPanel panel5 = new JPanel();
-        panel5.setLayout(new BorderLayout(0, 0));
-        panel4.add(panel5, BorderLayout.CENTER);
+        panel3.add(panel4, BorderLayout.CENTER);
         backBtn = new JButton();
         backBtn.setBackground(new Color(-1));
         backBtn.setText("Powrót");
-        panel5.add(backBtn, BorderLayout.WEST);
+        panel4.add(backBtn, BorderLayout.WEST);
     }
 
     /**

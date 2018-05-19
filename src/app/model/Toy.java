@@ -29,20 +29,10 @@ public class Toy extends Model {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("************************************");
-        sb.append("\nproducer: ").append(producer);
-        sb.append("\nname: ").append(name);
-        sb.append("\nweight: ").append(weight);
-        sb.append("\nminimalAge: ").append(minimalAge);
-        sb.append("\nprice: ").append(price);
-        sb.append("\ncategory: ").append(category);
-        sb.append("\n************************************");
-
-        return sb.toString();
-    }
+//    @Override
+//    public String toString() {
+//
+//    }
 
     public String getProducer() {
         return producer;

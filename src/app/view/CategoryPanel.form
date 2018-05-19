@@ -35,25 +35,7 @@
         <constraints border-constraint="East"/>
         <properties/>
         <border type="none"/>
-        <children>
-          <grid id="ac83c" layout-manager="BorderLayout" hgap="0" vgap="0">
-            <constraints border-constraint="South"/>
-            <properties>
-              <background color="-1"/>
-              <preferredSize width="135" height="40"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="fe312" class="javax.swing.JLabel">
-                <constraints border-constraint="West"/>
-                <properties>
-                  <icon value="app/images/add-button-inside-black-circle.png"/>
-                  <text value="Usuń kategorię"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
-        </children>
+        <children/>
       </grid>
       <grid id="69af2" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="South"/>

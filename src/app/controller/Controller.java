@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.Service;
 import app.SimpleServiceLocator;
 import app.model.*;
 import app.service.FileHandlingService;
@@ -8,13 +9,16 @@ import app.view.JTableButtonMouseListener;
 import app.view.View;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 
 /**
@@ -43,7 +47,6 @@ public class Controller extends JPanel {
         this.serviceLocator = serviceLocator;
 
         FileHandlingService service =(FileHandlingService) this.serviceLocator.get("file_handler");
-        service.importCategoryData(model, service.getCategoryFromJson("src/app/data/categories.json"));
         service.importToyData(model, service.getToyFromJson("src/app/data/toys.json"));
     }
 
@@ -82,6 +85,8 @@ public class Controller extends JPanel {
         filterTable();
         showAddCategoryFrame();
         addToyAction();
+        importFile();
+        exportToFile();
     }
 
 
@@ -201,5 +206,98 @@ public class Controller extends JPanel {
                 addCategoryFrame.dispose();
             }
         });
+    }
+
+    public void importFile() {
+
+        view.getMainPanel().getFileImport().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Service service = ((FileHandlingService) Controller.this.serviceLocator.get("file_handler"));
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChooser.setFileFilter(new FileNameExtensionFilter(".json", "json"));
+
+                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    String path = fileChooser.getSelectedFile().toString();
+                    renderProgressBar(new Callable<Void>() {
+                        @Override
+                        public Void call() throws Exception {
+                            ((FileHandlingService) service).importToyData(Controller.this.model, ((FileHandlingService) service).getToyFromJson(path));
+
+                            return null;
+                        }
+                    });
+                } else {
+                    System.out.println("NO FILE CHOOSEN");
+                }
+            }
+        });
+    }
+
+    public void exportToFile() {
+        view.getMainPanel().getFileExport().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JFrame parentFrame = new JFrame();
+
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Specify a file to save");
+
+                int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    String fileToSave = fileChooser.getSelectedFile().toString();
+
+                }
+//                renderProgressBar(new Callable<Void>() {
+//                    @Override
+//                    public Void call() throws Exception {
+//                        FileHandlingService service =(FileHandlingService) Controller.this.serviceLocator.get("file_handler");
+//
+//                        service.exportToyData(Controller.this.model, );
+//                        return null;
+//                    }
+//                });
+            }
+        });
+    }
+
+    public void renderProgressBar(Callable<Void> func) {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JProgressBar progressBar = new JProgressBar();
+        progressBar.setPreferredSize(new Dimension(250, 70));
+        frame.add(progressBar);
+        progressBar.setStringPainted(true);
+        progressBar.setValue(0);
+
+        int timerDelay = 10;
+        new javax.swing.Timer(timerDelay , new ActionListener() {
+            private int index = 0;
+            private int maxIndex = 100;
+            public void actionPerformed(ActionEvent e) {
+                if (index < maxIndex) {
+                    progressBar.setValue(index);
+                    index++;
+                } else {
+                    progressBar.setValue(maxIndex);
+                    try {
+                        func.call();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    ((javax.swing.Timer)e.getSource()).stop();
+                    frame.dispose();
+                }
+            }
+        }).start();
+
+        progressBar.setValue(progressBar.getMinimum());
+
+        frame.setVisible(true);
+        frame.pack();
     }
 }

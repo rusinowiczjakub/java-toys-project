@@ -9,15 +9,15 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.List;
 
 public class FileHandlingService extends Service {
 
     private static final Type TOY_TYPE = new TypeToken<List<Toy>>() {
-    }.getType();
-
-    private static final Type CATEGORY_TYPE = new TypeToken<List<Category>>(){
     }.getType();
 
     public FileHandlingService() {
@@ -33,16 +33,6 @@ public class FileHandlingService extends Service {
         return null;
     }
 
-    public List<Category> getCategoryFromJson(String jsonFile) {
-
-        Gson gson = new Gson();
-        JsonReader reader = null;
-        reader = new JsonReader(getFile(jsonFile));
-        List<Category> data = gson.fromJson(reader, CATEGORY_TYPE); // contains the whole reviews list
-
-        return data;
-    }
-
     public List<Toy> getToyFromJson(String jsonFile) {
         Gson gson = new Gson();
         JsonReader reader = null;
@@ -50,12 +40,6 @@ public class FileHandlingService extends Service {
         List<Toy> data = gson.fromJson(reader, TOY_TYPE); // contains the whole reviews list
 
         return data;
-    }
-
-    public void importCategoryData(Model model, List data) {
-        for (int i = 0; i < data.size(); i++) {
-            model.addCategory((Category) data.get(i));
-        }
     }
 
     public void importToyData(Model model, List data) {
@@ -69,6 +53,21 @@ public class FileHandlingService extends Service {
                 }
             }
         }
+    }
+
+    public void exportToyData(Model model, String filepath) {
+        Gson gson = new Gson();
+
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(filepath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        PrintWriter writer = new PrintWriter(fileWriter);
+        writer.print(gson.toJson(model.getToys()));
+        writer.close();
     }
 
     public boolean containsCategory(final List<Category> list, final String name){
