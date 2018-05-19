@@ -39,10 +39,7 @@ public class Model {
             if(category.toString().equals("")) {
                 return toys;
             }
-//            System.out.println(toys);
         }
-
-
 
         return categorizedToys;
     }

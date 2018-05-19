@@ -60,7 +60,6 @@ public class FileHandlingService extends Service {
 
     public void importToyData(Model model, List data) {
         for (int i = 0; i < data.size(); i++) {
-            System.out.println(data.get(i));
             model.addToy((Toy) data.get(i));
             Toy toy = ((Toy) data.get(i));
 

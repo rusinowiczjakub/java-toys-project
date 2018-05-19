@@ -45,8 +45,6 @@ public class Controller extends JPanel {
         FileHandlingService service =(FileHandlingService) this.serviceLocator.get("file_handler");
         service.importCategoryData(model, service.getCategoryFromJson("src/app/data/categories.json"));
         service.importToyData(model, service.getToyFromJson("src/app/data/toys.json"));
-
-        System.out.println(model.getToys());
     }
 
     /**
@@ -87,6 +85,8 @@ public class Controller extends JPanel {
     }
 
 
+    /* EVENTS LISTENERS */
+
     public void addToyAction() {
         view.getToyPanel().getAddNewBtn().addMouseListener(new MouseAdapter() {
             @Override
@@ -102,19 +102,43 @@ public class Controller extends JPanel {
         view.getCreateToy().getSaveBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Toy toy = new Toy(
-                        view.getCreateToy().getProducer().getText(),
-                        view.getCreateToy().getName().getText(),
-                        (double) view.getCreateToy().getWeight().getValue(),
-                        (int) view.getCreateToy().getMinAge().getValue(),
-                        (double) view.getCreateToy().getPrice().getValue(),
-                        (Category) view.getCreateToy().getCategoryBox().getSelectedItem()
-                );
+                try {
+                    if (
+                        !((double)view.getCreateToy().getWeight().getValue() > 0) ||
+                        !((int)view.getCreateToy().getMinAge().getValue() > 0) ||
+                        !((double)view.getCreateToy().getPrice().getValue() >= 0)
+                    ) {
+                        throw new Exception("Wszystkie wartości muszą być dodatnie");
+                    }
+                    if (
+                        (view.getCreateToy().getProducer().getText().isEmpty()) ||
+                        (view.getCreateToy().getName().getText().isEmpty())
+                    ) {
+                        throw new Exception("Pola Producent i Nazwa Produktu sa wymagane");
+                    }
 
-                addToyFrame.dispose();
-                model.addToy(toy);
+                    if (
+                        (view.getCreateToy().getCategoryBox().getSelectedItem()).toString().equals("")
+                    ) {
+                        throw new NullPointerException("Musisz wybrać kategorię");
+                    }
 
-                ((AbstractTableModel) view.getToyPanel().getTable().getModel()).fireTableDataChanged();
+                    Toy toy = new Toy(
+                            view.getCreateToy().getProducer().getText(),
+                            view.getCreateToy().getName().getText(),
+                            (double) view.getCreateToy().getWeight().getValue(),
+                            (int) view.getCreateToy().getMinAge().getValue(),
+                            (double) view.getCreateToy().getPrice().getValue(),
+                            (Category) view.getCreateToy().getCategoryBox().getSelectedItem()
+                    );
+
+                    addToyFrame.dispose();
+                    model.addToy(toy);
+
+                    ((AbstractTableModel) view.getToyPanel().getTable().getModel()).fireTableDataChanged();
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
             }
         });
     }
@@ -174,7 +198,6 @@ public class Controller extends JPanel {
                 Category category = new Category(view.getCreateCategory().getCategoryNameField().getText());
 
                 model.addCategory(category);
-                System.out.println(model.getCategories());
                 addCategoryFrame.dispose();
             }
         });

@@ -2,21 +2,61 @@
   {
     "producer":"Moleo",
     "name":"Resorak",
-    "weight": 5.00,
+    "weight": 0.14,
     "minimalAge": 3,
-    "price": 10.99,
+    "price": 3.10,
     "category": {
       "name":"Samochody"
     }
   },
   {
-    "producer":"Moleo",
-    "name":"Resorak",
+    "producer":"Bob",
+    "name":"Piłka do nogi",
+    "weight": 5.00,
+    "minimalAge": 3,
+    "price": 65.99,
+    "category": {
+      "name":"Piłki"
+    }
+  },
+  {
+    "producer":"EPPE",
+    "name":"Walczące smoki",
+    "weight": 0.77,
+    "minimalAge": 3,
+    "price": 87.99,
+    "category": {
+      "name":"Puzzle"
+    }
+  },
+  {
+    "producer":"KROSS",
+    "name":"Rowerek bez pedałów",
     "weight": 5.00,
     "minimalAge": 3,
     "price": 10.99,
     "category": {
-      "name":"Bakłażany"
+      "name":"Rowery"
+    }
+  },
+  {
+    "producer":"Bingo",
+    "name":"Maskotka SŁONIK",
+    "weight": 1.00,
+    "minimalAge": 3,
+    "price": 29.99,
+    "category": {
+      "name":"Maskotki"
+    }
+  },
+  {
+    "producer":"Little pony",
+    "name":"Lalka Barbie",
+    "weight": 0.5,
+    "minimalAge": 3,
+    "price": 120.99,
+    "category": {
+      "name":"Lalki"
     }
   }
 ]

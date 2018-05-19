@@ -35,6 +35,7 @@ public class View extends JFrame {
     public View createView() {
         this.setPreferredSize(new Dimension(1000, 600));
         this.setContentPane(mainPanel.getMainPane());
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
         return this;
