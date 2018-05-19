@@ -63,16 +63,17 @@ public class FileHandlingService extends Service {
             System.out.println(data.get(i));
             model.addToy((Toy) data.get(i));
             Toy toy = ((Toy) data.get(i));
-        }
 
-//        for (int j = 0; j < model.getCategories().size(); j++) {
-//            System.out.println("=============");
-//            System.out.println(model.getCategories().get(j).toString());
-//            System.out.println(toy.getCategory().toString());
-//            if (!model.getCategories().get(j).toString().equals(toy.getCategory().toString())) {
-//                model.addCategory(new Category(toy.getCategory().toString()));
-//            }
-//        }
+            for (int j = 0; j < model.getCategories().size(); j++) {
+                if (!containsCategory(model.getCategories(), toy.getCategory().toString())) {
+                    model.addCategory(new Category(toy.getCategory().toString()));
+                }
+            }
+        }
+    }
+
+    public boolean containsCategory(final List<Category> list, final String name){
+        return list.stream().filter(o -> o.toString().equals(name)).findFirst().isPresent();
     }
 
 
