@@ -37,7 +37,7 @@ public class FileHandlingService extends Service {
         Gson gson = new Gson();
         JsonReader reader = null;
         reader = new JsonReader(getFile(jsonFile));
-        List<Toy> data = gson.fromJson(reader, TOY_TYPE); // contains the whole reviews list
+        List<Toy> data = gson.fromJson(reader, TOY_TYPE);
 
         return data;
     }
