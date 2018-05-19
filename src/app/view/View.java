@@ -1,5 +1,7 @@
 package app.view;
 
+import app.controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

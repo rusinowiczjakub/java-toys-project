@@ -12,10 +12,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -74,7 +71,6 @@ public class Controller extends JPanel {
 
         view.hoverEffect(this.view.getMainPanel().getToys(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getCategories(), new Color(25,181,254, 60));
-        view.hoverEffect(this.view.getMainPanel().getAbout(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getClose(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getFileExport(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getFileImport(), new Color(25,181,254, 60));
@@ -237,6 +233,18 @@ public class Controller extends JPanel {
     }
 
     public void exportToFile() {
+        WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                FileHandlingService service = (FileHandlingService) Controller.this.serviceLocator.get("file_handler");
+                service.exportToyData(model, "src/app/data/toys.json");
+            }
+        };
+
+        view.addWindowListener(exitListener);
+
+
         view.getMainPanel().getFileExport().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -253,7 +261,7 @@ public class Controller extends JPanel {
                     renderProgressBar(new Callable<Void>() {
                         @Override
                         public Void call() throws Exception {
-                            FileHandlingService service =(FileHandlingService) Controller.this.serviceLocator.get("file_handler");
+                            FileHandlingService service = (FileHandlingService) Controller.this.serviceLocator.get("file_handler");
 
                             service.exportToyData(Controller.this.model, fileToSave);
                             return null;
@@ -268,7 +276,7 @@ public class Controller extends JPanel {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JProgressBar progressBar = new JProgressBar();
-        progressBar.setPreferredSize(new Dimension(250, 70));
+        progressBar.setPreferredSize(new Dimension(250, 50));
         frame.add(progressBar);
         progressBar.setStringPainted(true);
         progressBar.setValue(0);
@@ -298,5 +306,9 @@ public class Controller extends JPanel {
 
         frame.setVisible(true);
         frame.pack();
+    }
+
+    public void exitButtonAction() {
+
     }
 }

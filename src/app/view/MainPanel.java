@@ -16,7 +16,6 @@ public class MainPanel {
     private JPanel fileExport;
     private JPanel fileImport;
     private JPanel close;
-    private JPanel about;
     private JPanel mainPane;
 
     /**
@@ -28,7 +27,6 @@ public class MainPanel {
         fileExport.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         fileImport.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        about.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     public JPanel getCategories() {
@@ -49,10 +47,6 @@ public class MainPanel {
 
     public JPanel getClose() {
         return close;
-    }
-
-    public JPanel getAbout() {
-        return about;
     }
 
     public JPanel getMainPane() {
@@ -186,24 +180,6 @@ public class MainPanel {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         fileImport.add(label5, gbc);
-        about = new JPanel();
-        about.setLayout(new GridBagLayout());
-        about.setBackground(new Color(-1));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        gbc.fill = GridBagConstraints.BOTH;
-        mainPane.add(about, gbc);
-        final JLabel label6 = new JLabel();
-        label6.setIcon(new ImageIcon(getClass().getResource("/app/images/icon.png")));
-        label6.setOpaque(false);
-        label6.setPreferredSize(new Dimension(130, 130));
-        label6.setText("");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        about.add(label6, gbc);
         final JToolBar.Separator toolBar$Separator4 = new JToolBar.Separator();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -270,14 +246,24 @@ public class MainPanel {
         gbc.gridy = 5;
         gbc.fill = GridBagConstraints.VERTICAL;
         mainPane.add(toolBar$Separator12, gbc);
+        final JLabel label6 = new JLabel();
+        Font label6Font = this.$$$getFont$$$("SansSerif", Font.BOLD, 22, label6.getFont());
+        if (label6Font != null) label6.setFont(label6Font);
+        label6.setForeground(new Color(-15092226));
+        label6.setPreferredSize(new Dimension(130, 20));
+        label6.setText("Import");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        mainPane.add(label6, gbc);
         final JLabel label7 = new JLabel();
         Font label7Font = this.$$$getFont$$$("SansSerif", Font.BOLD, 22, label7.getFont());
         if (label7Font != null) label7.setFont(label7Font);
         label7.setForeground(new Color(-15092226));
         label7.setPreferredSize(new Dimension(130, 20));
-        label7.setText("Import");
+        label7.setText("Wyjście");
         gbc = new GridBagConstraints();
-        gbc.gridx = 0;
+        gbc.gridx = 4;
         gbc.gridy = 4;
         mainPane.add(label7, gbc);
         final JLabel label8 = new JLabel();
@@ -285,51 +271,31 @@ public class MainPanel {
         if (label8Font != null) label8.setFont(label8Font);
         label8.setForeground(new Color(-15092226));
         label8.setPreferredSize(new Dimension(130, 20));
-        label8.setText("Info");
+        label8.setText("Kategorie");
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         mainPane.add(label8, gbc);
         final JLabel label9 = new JLabel();
         Font label9Font = this.$$$getFont$$$("SansSerif", Font.BOLD, 22, label9.getFont());
         if (label9Font != null) label9.setFont(label9Font);
         label9.setForeground(new Color(-15092226));
         label9.setPreferredSize(new Dimension(130, 20));
-        label9.setText("Wyjście");
+        label9.setText("Zabawki");
         gbc = new GridBagConstraints();
-        gbc.gridx = 4;
-        gbc.gridy = 4;
+        gbc.gridx = 2;
+        gbc.gridy = 0;
         mainPane.add(label9, gbc);
         final JLabel label10 = new JLabel();
         Font label10Font = this.$$$getFont$$$("SansSerif", Font.BOLD, 22, label10.getFont());
         if (label10Font != null) label10.setFont(label10Font);
         label10.setForeground(new Color(-15092226));
         label10.setPreferredSize(new Dimension(130, 20));
-        label10.setText("Kategorie");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        mainPane.add(label10, gbc);
-        final JLabel label11 = new JLabel();
-        Font label11Font = this.$$$getFont$$$("SansSerif", Font.BOLD, 22, label11.getFont());
-        if (label11Font != null) label11.setFont(label11Font);
-        label11.setForeground(new Color(-15092226));
-        label11.setPreferredSize(new Dimension(130, 20));
-        label11.setText("Zabawki");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        mainPane.add(label11, gbc);
-        final JLabel label12 = new JLabel();
-        Font label12Font = this.$$$getFont$$$("SansSerif", Font.BOLD, 22, label12.getFont());
-        if (label12Font != null) label12.setFont(label12Font);
-        label12.setForeground(new Color(-15092226));
-        label12.setPreferredSize(new Dimension(130, 20));
-        label12.setText("Eksport");
+        label10.setText("Eksport");
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 0;
-        mainPane.add(label12, gbc);
+        mainPane.add(label10, gbc);
     }
 
     /**
