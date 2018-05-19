@@ -1,0 +1,22 @@
+[
+  {
+    "producer":"Moleo",
+    "name":"Resorak",
+    "weight": 5.00,
+    "minimalAge": 3,
+    "price": 10.99,
+    "category": {
+      "name":"Samochody"
+    }
+  },
+  {
+    "producer":"Moleo",
+    "name":"Resorak",
+    "weight": 5.00,
+    "minimalAge": 3,
+    "price": 10.99,
+    "category": {
+      "name":"Bakłażany"
+    }
+  }
+]

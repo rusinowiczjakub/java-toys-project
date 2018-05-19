@@ -34,20 +34,6 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="ffab9" class="javax.swing.JComboBox" binding="categoriesBox">
-            <constraints border-constraint="North"/>
-            <properties>
-              <background color="-1"/>
-            </properties>
-          </component>
-          <component id="ad463" class="javax.swing.JButton" binding="searchButton">
-            <constraints border-constraint="Center"/>
-            <properties>
-              <background color="-1"/>
-              <foreground color="-16777216"/>
-              <text value="Filtruj"/>
-            </properties>
-          </component>
           <component id="ef0e2" class="javax.swing.JLabel">
             <constraints border-constraint="East"/>
             <properties>
@@ -58,6 +44,34 @@
               <text value=" "/>
             </properties>
           </component>
+          <component id="f4ea4" class="javax.swing.JComboBox" binding="categoriesBox">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <background color="-1"/>
+            </properties>
+          </component>
+          <component id="7f9aa" class="javax.swing.JButton" binding="searchButton">
+            <constraints border-constraint="West"/>
+            <properties>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
+              <text value="Filtruj"/>
+            </properties>
+          </component>
+          <grid id="7b39c" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="North"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="df886" class="javax.swing.JButton" binding="backBtn">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <background color="-1"/>
+                  <text value="Powrót"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>

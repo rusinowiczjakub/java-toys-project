@@ -1,9 +1,8 @@
 package app.controller;
 
-import app.model.Category;
-import app.model.Model;
-import app.model.Toy;
-import app.model.ToyTableModel;
+import app.SimpleServiceLocator;
+import app.model.*;
+import app.service.FileHandlingService;
 import app.view.ButtonRenderer;
 import app.view.JTableButtonMouseListener;
 import app.view.View;
@@ -26,7 +25,9 @@ public class Controller extends JPanel {
     private Model model;
     private View view;
     private JFrame addToyFrame;
+    private JFrame addCategoryFrame;
     private List<Toy> tableData;
+    private SimpleServiceLocator serviceLocator;
 
     /**
      * Instantiates a new Controller.
@@ -34,10 +35,18 @@ public class Controller extends JPanel {
      * @param model the model
      * @param view  the view
      */
-    public Controller(Model model, View view) {
+    public Controller(Model model, View view, SimpleServiceLocator serviceLocator) {
         this.model = model;
         this.view = view;
         addToyFrame = new JFrame();
+        addCategoryFrame = new JFrame();
+        this.serviceLocator = serviceLocator;
+
+        FileHandlingService service =(FileHandlingService) this.serviceLocator.get("file_exporter");
+        service.importCategoryData(model, service.getCategoryFromJson("src/app/data/categories.json"));
+        service.importToyData(model, service.getToyFromJson("src/app/data/toys.json"));
+
+        System.out.println(model.getToys());
     }
 
     /**
@@ -57,8 +66,11 @@ public class Controller extends JPanel {
      *
      */
     public void initListeners() {
+        view.changePanel(view.getCategoryPanel().getBackBtn(), view.getMainPanel().getMainPane(), view);
+        view.changePanel(view.getToyPanel().getBackBtn(), view.getMainPanel().getMainPane(), view);
         view.changePanel(view.getMainPanel().getToys(), view.getToyPanel().getToysPanel(), view);
-        addToyAction();
+        view.changePanel(view.getMainPanel().getCategories(), view.getCategoryPanel().getCategoriesPane(), view);
+
         view.hoverEffect(this.view.getMainPanel().getToys(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getCategories(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getAbout(), new Color(25,181,254, 60));
@@ -67,6 +79,11 @@ public class Controller extends JPanel {
         view.hoverEffect(this.view.getMainPanel().getFileImport(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getMainPanel().getFileImport(), new Color(25,181,254, 60));
         view.hoverEffect(this.view.getToyPanel().getAddNewBtn(), new Color(25,181,254, 60));
+        view.hoverEffect(this.view.getCategoryPanel().getAddNewCategoryBtn(), new Color(25,181,254, 60));
+
+        filterTable();
+        showAddCategoryFrame();
+        addToyAction();
     }
 
 
@@ -104,24 +121,13 @@ public class Controller extends JPanel {
 
     public void createTable() {
         tableData = model.getToys();
-        view.getToyPanel().getSearchButton().addActionListener(e -> {
-            JTable table = Controller.this.view.getToyPanel().getTable();
-            tableData = Controller.this.model.getToysByCategory((Category) Controller.this.view.getToyPanel().getCategoriesBox().getSelectedItem());
-            table.setModel(new ToyTableModel(tableData));
-            table.getColumn("").setCellRenderer(new ButtonRenderer());
-            table.addMouseListener(new JTableButtonMouseListener(Controller.this.view.getToyPanel().getTable()));
-            ((AbstractTableModel) Controller.this.view.getToyPanel().getTable().getModel()).fireTableDataChanged();
-        });
-
         JTable table = new JTable(new ToyTableModel(tableData));
         table.setAutoCreateRowSorter(true);
         table.getColumn("").setCellRenderer(new ButtonRenderer());
         table.addMouseListener(new JTableButtonMouseListener(table));
-        table.setBackground(new Color(255, 255, 255, 100));
         view.getToyPanel().setTable(table);
 
         JScrollPane scrollPane = new JScrollPane(view.getToyPanel().getTable());
-        scrollPane.getViewport().setBackground(Color.WHITE);
         view.getToyPanel().setScrollPane(scrollPane);
 
         view.getToyPanel().getToysPanel().add(
@@ -130,13 +136,47 @@ public class Controller extends JPanel {
     }
 
     public void renderCategoriesBox() {
-        for(int i = 0; i < model.getCategories().size(); i++) {
-            if (!(i == 0)) {
-                view.getCreateToy().getCategoryBox().addItem(model.getCategories().get(i));
-            }
-            view.getToyPanel().getCategoriesBox().addItem(model.getCategories().get(i));
-        }
+        CategoryBoxModel boxModel = new CategoryBoxModel(model.getCategories());
+        view.getCreateToy().getCategoryBox().setModel(boxModel);
+        view.getToyPanel().getCategoriesBox().setModel(boxModel);
+        view.getCategoryPanel().getCategoriesBox().setModel(boxModel);
     }
 
+    public void filterTable() {
+        view.getToyPanel().getSearchButton().addActionListener(e -> {
+            JTable table = Controller.this.view.getToyPanel().getTable();
+            tableData = Controller.this.model.getToysByCategory((Category) Controller.this.view.getToyPanel().getCategoriesBox().getSelectedItem());
 
+            table.setModel(new ToyTableModel(tableData));
+            table.getColumn("").setCellRenderer(new ButtonRenderer());
+            table.addMouseListener(new JTableButtonMouseListener(Controller.this.view.getToyPanel().getTable()));
+
+            ((AbstractTableModel) Controller.this.view.getToyPanel().getTable().getModel()).fireTableDataChanged();
+        });
+
+    }
+
+    public void showAddCategoryFrame() {
+        view.getCategoryPanel().getAddNewCategoryBtn().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                addCategoryFrame.setSize(new Dimension(300, 200));
+                addCategoryFrame.add(view.getCreateCategory().getAddCategoryPane());
+                addCategoryFrame.setVisible(true);
+                view.pack();
+            }
+        });
+
+        view.getCreateCategory().getAddCategory().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Category category = new Category(view.getCreateCategory().getCategoryNameField().getText());
+
+                model.addCategory(category);
+                System.out.println(model.getCategories());
+                addCategoryFrame.dispose();
+            }
+        });
+    }
 }

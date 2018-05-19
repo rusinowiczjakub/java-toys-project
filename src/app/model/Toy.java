@@ -38,6 +38,7 @@ public class Toy extends Model {
         sb.append("\nweight: ").append(weight);
         sb.append("\nminimalAge: ").append(minimalAge);
         sb.append("\nprice: ").append(price);
+        sb.append("\ncategory: ").append(category);
         sb.append("\n************************************");
 
         return sb.toString();

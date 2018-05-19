@@ -12,9 +12,6 @@ public class Model {
         toys = new ArrayList<Toy>();
         categories = new ArrayList<Category>();
         categories.add(new Category(""));
-        categories.add(new Category("Samochody"));
-        categories.add(new Category("Lalki"));
-        categories.add(new Category("Puzzle"));
     }
 
     public void addToy(Toy toy) {
@@ -36,13 +33,16 @@ public class Model {
     public List<Toy> getToysByCategory(Category category) {
         List<Toy> categorizedToys = new ArrayList<>();
         for (int i = 0; i < toys.size(); i++) {
-            if(toys.get(i).getCategory() == category) {
+            if(toys.get(i).getCategory().toString().equals(category.toString())) {
                 categorizedToys.add(toys.get(i));
             }
-            if(category.toString() == "") {
+            if(category.toString().equals("")) {
                 return toys;
             }
+//            System.out.println(toys);
         }
+
+
 
         return categorizedToys;
     }

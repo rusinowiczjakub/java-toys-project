@@ -2,9 +2,7 @@ package app.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 /**
  * The type View.
@@ -14,11 +12,15 @@ public class View extends JFrame {
     private MainPanel mainPanel;
     private ToyPanel toyPanel;
     private CreateToy createToy;
+    private CategoryPanel categoryPanel;
+    private CreateCategory createCategory;
 
     public View() {
         mainPanel = new MainPanel();
         toyPanel = new ToyPanel();
         createToy = new CreateToy();
+        categoryPanel = new CategoryPanel();
+        createCategory = new CreateCategory();
     }
 
     public void setMainPanel(MainPanel mainPanel) {
@@ -44,16 +46,29 @@ public class View extends JFrame {
      * @param element the element
      * @param panel   the panel
      */
-    public void changePanel(JPanel element, JPanel panel, View view) {
-        element.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                panel.setVisible(true);
-                view.setContentPane(panel);
-                view.pack();
-            }
-        });
+    public void changePanel(Object element, JPanel panel, View view) {
+        if (element instanceof JButton) {
+            ((JButton)element).addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    panel.setVisible(true);
+                    view.setContentPane(panel);
+                    view.pack();
+                }
+            });
+        }
+
+        if (element instanceof JPanel) {
+            ((JPanel)element).addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    panel.setVisible(true);
+                    view.setContentPane(panel);
+                    view.pack();
+                }
+            });
+        }
     }
 
     public void hoverEffect(JPanel element, Color enterColor) {
@@ -83,5 +98,13 @@ public class View extends JFrame {
 
     public CreateToy getCreateToy() {
         return createToy;
+    }
+
+    public CategoryPanel getCategoryPanel() {
+        return categoryPanel;
+    }
+
+    public CreateCategory getCreateCategory() {
+        return createCategory;
     }
 }
