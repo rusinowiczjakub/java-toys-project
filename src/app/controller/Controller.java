@@ -250,17 +250,16 @@ public class Controller extends JPanel {
 
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     String fileToSave = fileChooser.getSelectedFile().toString();
+                    renderProgressBar(new Callable<Void>() {
+                        @Override
+                        public Void call() throws Exception {
+                            FileHandlingService service =(FileHandlingService) Controller.this.serviceLocator.get("file_handler");
 
+                            service.exportToyData(Controller.this.model, fileToSave);
+                            return null;
+                        }
+                    });
                 }
-//                renderProgressBar(new Callable<Void>() {
-//                    @Override
-//                    public Void call() throws Exception {
-//                        FileHandlingService service =(FileHandlingService) Controller.this.serviceLocator.get("file_handler");
-//
-//                        service.exportToyData(Controller.this.model, );
-//                        return null;
-//                    }
-//                });
             }
         });
     }
