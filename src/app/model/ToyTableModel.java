@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ToyTableModel extends AbstractTableModel {
@@ -58,7 +59,8 @@ public class ToyTableModel extends AbstractTableModel {
 
                 break;
             case 4:
-                temp = toysList.get(rowIndex).getPrice();
+                DecimalFormat df = new DecimalFormat(".##");
+                temp = df.format(toysList.get(rowIndex).getPrice());
 
                 break;
 

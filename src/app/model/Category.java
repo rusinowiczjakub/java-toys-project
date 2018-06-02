@@ -11,4 +11,8 @@ public class Category {
     public String toString() {
         return name;
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -1,5 +1,7 @@
 package app.model;
 
+import java.text.DecimalFormat;
+
 /**
  * The type Toy.
  */
@@ -25,14 +27,9 @@ public class Toy extends Model {
         this.name = name;
         this.weight = weight;
         this.minimalAge = minimalAge;
-        this.price = price;
+        this.price = Math.round(price * 100.0) / 100.0;
         this.category = category;
     }
-
-//    @Override
-//    public String toString() {
-//
-//    }
 
     public String getProducer() {
         return producer;
@@ -71,7 +68,7 @@ public class Toy extends Model {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.price = Math.round(price * 100.0) / 100.0;
     }
 
     public Category getCategory() {
@@ -80,6 +77,16 @@ public class Toy extends Model {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Producent: " +producer + "\n"+
+                "Nazwa: " + name + "\n"+
+                "Waga: " + weight + "\n"+
+                "Minimalny wiek:" + minimalAge + "\n" +
+                "Cena: " + price + " \n" +
+                "Kategoria: " + category;
     }
 }
 

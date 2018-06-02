@@ -70,6 +70,18 @@
                   <text value="Powrót"/>
                 </properties>
               </component>
+              <component id="93126" class="javax.swing.JButton" binding="findByButton">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <text value="Szukaj"/>
+                </properties>
+              </component>
+              <component id="31b59" class="javax.swing.JButton" binding="compareButton">
+                <constraints border-constraint="East"/>
+                <properties>
+                  <text value="Szukaj maksymalnej/minimalnej wartości"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

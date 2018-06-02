@@ -7,6 +7,7 @@ import app.service.FileHandlingService;
 import app.view.ButtonRenderer;
 import app.view.JTableButtonMouseListener;
 import app.view.View;
+import com.sun.deploy.util.StringUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -82,6 +83,8 @@ public class Controller extends JPanel {
         addToyAction();
         importFile();
         exportToFile();
+        findBy();
+        findMinMaxValue();
     }
 
 
@@ -307,7 +310,56 @@ public class Controller extends JPanel {
         frame.pack();
     }
 
-    public void exitButtonAction() {
+    public void findBy() {
+        view.getToyPanel().getFindByButton().addActionListener(e -> {
+            view.showSearchDialog();
 
+            view.getSearchDialog().getSearchButton().addActionListener(e1 -> {
+                Double doubleVal;
+                if (isNumeric(Controller.this.view.getSearchDialog().getValueField().getText())) {
+                    doubleVal = Double.parseDouble(Controller.this.view.getSearchDialog().getValueField().getText());
+                } else {
+                    doubleVal = 0.0;
+                }
+
+                List newList = Controller.this.model.getToysByValue(
+                        Controller.this.view.getSearchDialog().getColumnName().getSelectedItem().toString(),
+                        Controller.this.view.getSearchDialog().getValueField().getText(),
+                        doubleVal
+                );
+                Controller.this.view.getToyPanel().getTable().setModel(new ToyTableModel(newList));
+                ((AbstractTableModel) Controller.this.view.getToyPanel().getTable().getModel()).fireTableDataChanged();
+            });
+        });
+    }
+
+    public void findMinMaxValue() {
+        view.getToyPanel().getCompareButton().addActionListener(e -> {
+            view.showCompareDialog();
+            view.getCompareDialog().getMaxButton().addActionListener(e1 -> {
+                System.out.println(
+                    Controller.this.model.getMinMaxValue(view.getCompareDialog().getColumnName().getSelectedItem().toString(), true)
+                );
+            });
+
+            view.getCompareDialog().getMinButton().addActionListener(e2 -> {
+                System.out.println(
+                        Controller.this.model.getMinMaxValue(view.getCompareDialog().getColumnName().getSelectedItem().toString(), false)
+                );
+            });
+        });
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 }

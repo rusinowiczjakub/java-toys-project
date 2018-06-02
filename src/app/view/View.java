@@ -16,6 +16,8 @@ public class View extends JFrame {
     private CreateToy createToy;
     private CategoryPanel categoryPanel;
     private CreateCategory createCategory;
+    private SearchDialog searchDialog;
+    private CompareDialog compareDialog;
 
     public View() {
         mainPanel = new MainPanel();
@@ -91,6 +93,35 @@ public class View extends JFrame {
         });
     }
 
+    public void showSearchDialog() {
+        searchDialog = new SearchDialog();
+        searchDialog.getMainPane().add(searchDialog.getColumnName(), BorderLayout.WEST);
+        searchDialog.getMainPane().add(searchDialog.getValueField(), BorderLayout.EAST);
+        searchDialog.getMainPane().add(searchDialog.getSearchButton(), BorderLayout.SOUTH);
+
+        for (int i = 0; i < getToyPanel().getTable().getModel().getColumnCount(); i++) {
+            searchDialog.getColumnName().addItem(getToyPanel().getTable().getModel().getColumnName(i));
+        }
+        searchDialog.setContentPane(searchDialog.getMainPane());
+        searchDialog.setVisible(true);
+        searchDialog.pack();
+    }
+
+    public void showCompareDialog() {
+        compareDialog = new CompareDialog();
+        compareDialog.getMainPane().add(compareDialog.getColumnName(), BorderLayout.CENTER);
+        compareDialog.getButtonsPanel().add(compareDialog.getMinButton(), BorderLayout.EAST);
+        compareDialog.getButtonsPanel().add(compareDialog.getMaxButton(), BorderLayout.WEST);
+        compareDialog.getMainPane().add(compareDialog.getButtonsPanel(), BorderLayout.SOUTH);
+
+        for (int i = 0; i < getToyPanel().getTable().getModel().getColumnCount(); i++) {
+            compareDialog.getColumnName().addItem(getToyPanel().getTable().getModel().getColumnName(i));
+        }
+        compareDialog.setContentPane(compareDialog.getMainPane());
+        compareDialog.setVisible(true);
+        compareDialog.pack();
+    }
+
     public MainPanel getMainPanel() {
         return mainPanel;
     }
@@ -109,5 +140,13 @@ public class View extends JFrame {
 
     public CreateCategory getCreateCategory() {
         return createCategory;
+    }
+
+    public SearchDialog getSearchDialog() {
+        return searchDialog;
+    }
+
+    public CompareDialog getCompareDialog() {
+        return compareDialog;
     }
 }

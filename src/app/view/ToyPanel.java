@@ -12,6 +12,8 @@ public class ToyPanel {
     private JComboBox<Category> categoriesBox;
     private JButton searchButton;
     private JButton backBtn;
+    private JButton findByButton;
+    private JButton compareButton;
     private JTable table;
     private JScrollPane scrollPane;
 
@@ -53,6 +55,14 @@ public class ToyPanel {
 
     public JButton getBackBtn() {
         return backBtn;
+    }
+
+    public JButton getFindByButton() {
+        return findByButton;
+    }
+
+    public JButton getCompareButton() {
+        return compareButton;
     }
 
     {
@@ -110,6 +120,12 @@ public class ToyPanel {
         backBtn.setBackground(new Color(-1));
         backBtn.setText("Powrót");
         panel2.add(backBtn, BorderLayout.WEST);
+        findByButton = new JButton();
+        findByButton.setText("Szukaj");
+        panel2.add(findByButton, BorderLayout.CENTER);
+        compareButton = new JButton();
+        compareButton.setText("Szukaj maksymalnej/minimalnej wartości");
+        panel2.add(compareButton, BorderLayout.EAST);
     }
 
     /**
