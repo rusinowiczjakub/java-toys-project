@@ -18,6 +18,7 @@ public class View extends JFrame {
     private CreateCategory createCategory;
     private SearchDialog searchDialog;
     private CompareDialog compareDialog;
+    private FindByPriceDialog findByPriceDialog;
 
     public View() {
         mainPanel = new MainPanel();
@@ -122,6 +123,13 @@ public class View extends JFrame {
         compareDialog.pack();
     }
 
+    public void showFindByPriceDialog() {
+        findByPriceDialog = new FindByPriceDialog();
+        findByPriceDialog.setVisible(true);
+        findByPriceDialog.pack();
+
+    }
+
     public MainPanel getMainPanel() {
         return mainPanel;
     }
@@ -148,5 +156,9 @@ public class View extends JFrame {
 
     public CompareDialog getCompareDialog() {
         return compareDialog;
+    }
+
+    public FindByPriceDialog getFindByPriceDialog() {
+        return findByPriceDialog;
     }
 }

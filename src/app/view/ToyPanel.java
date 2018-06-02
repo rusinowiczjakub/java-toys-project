@@ -14,6 +14,7 @@ public class ToyPanel {
     private JButton backBtn;
     private JButton findByButton;
     private JButton compareButton;
+    private JButton findByPriceBtn;
     private JTable table;
     private JScrollPane scrollPane;
 
@@ -63,6 +64,10 @@ public class ToyPanel {
 
     public JButton getCompareButton() {
         return compareButton;
+    }
+
+    public JButton getFindByPriceBtn() {
+        return findByPriceBtn;
     }
 
     {
@@ -121,11 +126,14 @@ public class ToyPanel {
         backBtn.setText("Powrót");
         panel2.add(backBtn, BorderLayout.WEST);
         findByButton = new JButton();
-        findByButton.setText("Szukaj");
+        findByButton.setText("Szukaj według wartości");
         panel2.add(findByButton, BorderLayout.CENTER);
         compareButton = new JButton();
         compareButton.setText("Szukaj maksymalnej/minimalnej wartości");
         panel2.add(compareButton, BorderLayout.EAST);
+        findByPriceBtn = new JButton();
+        findByPriceBtn.setText("Szukaj według ceny");
+        panel2.add(findByPriceBtn, BorderLayout.SOUTH);
     }
 
     /**

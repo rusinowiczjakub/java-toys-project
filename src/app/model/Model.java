@@ -13,7 +13,7 @@ public class Model {
     public Model() {
         toys = new ArrayList<Toy>();
         categories = new ArrayList<Category>();
-        categories.add(new Category(""));
+        categories.add(new Category("Wszystkie zabawki"));
     }
 
     public void addToy(Toy toy) {
@@ -38,7 +38,7 @@ public class Model {
             if(toys.get(i).getCategory().toString().equals(category.toString())) {
                 categorizedToys.add(toys.get(i));
             }
-            if(category.toString().equals("")) {
+            if(category.toString().equals("Wszystkie zabawki")) {
                 return toys;
             }
         }
@@ -101,41 +101,19 @@ public class Model {
     public Toy getMinMaxValue(String columnName, boolean isMax) {
         switch(columnName.toLowerCase()) {
             case "kategoria":
-                Comparator<Toy> categoryComparator = new Comparator<Toy>() {
-                    @Override
-                    public int compare(Toy o1, Toy o2) {
-                        return o1.getCategory().getName().compareTo(o2.getCategory().getName());
-                    }
-                };
-
                 return isMax ?
-                        Collections.max(toys, categoryComparator) :
-                        Collections.min(toys, categoryComparator);
-
+                        Collections.max(toys, Comparator.comparing(t -> t.getCategory().getName())):
+                        Collections.min(toys, Comparator.comparing(t -> t.getCategory().getName()));
 
             case "producent":
-                Comparator<Toy> producerComparator = new Comparator<Toy>() {
-                    @Override
-                    public int compare(Toy o1, Toy o2) {
-                        return o1.getProducer().compareTo(o2.getProducer());
-                    }
-                };
-
                 return isMax ?
-                        Collections.max(toys, producerComparator) :
-                        Collections.min(toys, producerComparator);
+                        Collections.max(toys, Comparator.comparing(t -> t.getProducer())) :
+                        Collections.min(toys, Comparator.comparing(t -> t.getProducer()));
 
             case "nazwa":
-                Comparator<Toy> nameComparator = new Comparator<Toy>() {
-                    @Override
-                    public int compare(Toy o1, Toy o2) {
-                        return o1.getName().compareTo(o2.getName());
-                    }
-                };
-
                 return isMax ?
-                        Collections.max(toys, nameComparator) :
-                        Collections.min(toys, nameComparator);
+                        Collections.max(toys, Comparator.comparing(t -> t.getName())) :
+                        Collections.min(toys, Comparator.comparing(t -> t.getName()));
 
             case "waga":
 
@@ -155,5 +133,33 @@ public class Model {
         }
 
         return null;
+    }
+
+    public List<Toy> findToysByPrice(Double price, String operator) {
+        List<Toy> newToysList = new ArrayList<>();
+
+        switch (operator) {
+
+            case ">":
+
+                for (int i = 0; i < toys.size(); i++) {
+                    if (toys.get(i).getPrice() > price) {
+                        newToysList.add(toys.get(i));
+                    }
+                }
+
+                break;
+
+            case "<":
+                for (int i = 0; i < toys.size(); i++) {
+                    if (toys.get(i).getPrice() < price) {
+                        newToysList.add(toys.get(i));
+                    }
+                }
+
+                break;
+        }
+
+        return newToysList;
     }
 }

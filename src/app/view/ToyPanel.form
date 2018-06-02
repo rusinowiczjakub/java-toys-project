@@ -73,13 +73,19 @@
               <component id="93126" class="javax.swing.JButton" binding="findByButton">
                 <constraints border-constraint="Center"/>
                 <properties>
-                  <text value="Szukaj"/>
+                  <text value="Szukaj według wartości"/>
                 </properties>
               </component>
               <component id="31b59" class="javax.swing.JButton" binding="compareButton">
                 <constraints border-constraint="East"/>
                 <properties>
                   <text value="Szukaj maksymalnej/minimalnej wartości"/>
+                </properties>
+              </component>
+              <component id="6ed32" class="javax.swing.JButton" binding="findByPriceBtn">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <text value="Szukaj według ceny"/>
                 </properties>
               </component>
             </children>

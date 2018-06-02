@@ -8,11 +8,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.*;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandlingService extends Service {
@@ -24,7 +23,12 @@ public class FileHandlingService extends Service {
 
     }
 
-    public FileReader getFile (String filename) {
+    public FileReader getFile (String filename) throws Exception {
+        String ext = filename.substring(filename.lastIndexOf('.') + 1);
+        if (!ext.equals("json")) {
+            throw new Exception("Plik powinien posiadać rozszerzenie .json");
+        }
+
         try {
             return new FileReader(filename);
         } catch(Exception e) {
@@ -34,10 +38,17 @@ public class FileHandlingService extends Service {
     }
 
     public List<Toy> getToyFromJson(String jsonFile) {
-        Gson gson = new Gson();
-        JsonReader reader = null;
-        reader = new JsonReader(getFile(jsonFile));
-        List<Toy> data = gson.fromJson(reader, TOY_TYPE);
+
+        List<Toy> data = new ArrayList<>();
+        try {
+            Gson gson = new Gson();
+            JsonReader reader = null;
+            reader = new JsonReader(getFile(jsonFile));
+            data = gson.fromJson(reader, TOY_TYPE);
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         return data;
     }

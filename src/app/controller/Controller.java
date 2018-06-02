@@ -44,7 +44,7 @@ public class Controller extends JPanel {
         addCategoryFrame = new JFrame();
         this.serviceLocator = serviceLocator;
 
-        FileHandlingService service =(FileHandlingService) this.serviceLocator.get("file_handler");
+        FileHandlingService service =(FileHandlingService) serviceLocator.get("file_handler");
         service.importToyData(model, service.getToyFromJson("src/app/data/toys.json"));
     }
 
@@ -85,6 +85,8 @@ public class Controller extends JPanel {
         exportToFile();
         findBy();
         findMinMaxValue();
+        findToysByValue();
+
     }
 
 
@@ -212,7 +214,7 @@ public class Controller extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Service service = ((FileHandlingService) Controller.this.serviceLocator.get("file_handler"));
+                Service service = ((FileHandlingService) serviceLocator.get("file_handler"));
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 fileChooser.setFileFilter(new FileNameExtensionFilter(".json", "json"));
@@ -239,7 +241,7 @@ public class Controller extends JPanel {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                FileHandlingService service = (FileHandlingService) Controller.this.serviceLocator.get("file_handler");
+                FileHandlingService service = (FileHandlingService) serviceLocator.get("file_handler");
                 service.exportToyData(model, "src/app/data/toys.json");
             }
         };
@@ -263,7 +265,7 @@ public class Controller extends JPanel {
                     renderProgressBar(new Callable<Void>() {
                         @Override
                         public Void call() throws Exception {
-                            FileHandlingService service = (FileHandlingService) Controller.this.serviceLocator.get("file_handler");
+                            FileHandlingService service = (FileHandlingService) serviceLocator.get("file_handler");
 
                             service.exportToyData(Controller.this.model, fileToSave);
                             return null;
@@ -337,15 +339,33 @@ public class Controller extends JPanel {
         view.getToyPanel().getCompareButton().addActionListener(e -> {
             view.showCompareDialog();
             view.getCompareDialog().getMaxButton().addActionListener(e1 -> {
+                System.out.println("====================");
                 System.out.println(
                     Controller.this.model.getMinMaxValue(view.getCompareDialog().getColumnName().getSelectedItem().toString(), true)
                 );
             });
 
             view.getCompareDialog().getMinButton().addActionListener(e2 -> {
+                System.out.println("====================");
                 System.out.println(
                         Controller.this.model.getMinMaxValue(view.getCompareDialog().getColumnName().getSelectedItem().toString(), false)
                 );
+            });
+        });
+    }
+
+    public void findToysByValue() {
+        view.getToyPanel().getFindByPriceBtn().addActionListener(e -> {
+            view.showFindByPriceDialog();
+
+            view.getFindByPriceDialog().getSearchButton().addActionListener(e1 -> {
+            List<Toy> toysList = model.findToysByPrice(
+                    (Double) view.getFindByPriceDialog().getPrice().getValue(),
+                    view.getFindByPriceDialog().getOperator().getSelectedItem().toString()
+            );
+            view.getToyPanel().getTable().setModel(new ToyTableModel(toysList));
+
+            ((AbstractTableModel) view.getToyPanel().getTable().getModel()).fireTableDataChanged();
             });
         });
     }
